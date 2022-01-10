@@ -1,0 +1,21 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.list-group-item{
+    cursor: pointer;
+}
+.list-group
+{
+    height: 400px;
+    overflow-y:auto;
+    width:100%;
+    float:left;
+    position:relative;
+    margin-left:-5px;
+}
