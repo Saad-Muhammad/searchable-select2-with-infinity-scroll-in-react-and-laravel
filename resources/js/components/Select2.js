@@ -21,39 +21,21 @@ function Select2() {
         // console.log(node)
     },[loading, hasMore]);
 
-    // const allArticles = articles && articles.map( (article , index) => {
-    //     if(articles.length === index+1){
-    //         return (
-    //             <li key={article.id} ref={lastArticle}  className={activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action"}  onClick={() => handleSelect}>
-    //             {article.title}
-    //             </li>
-    //         );
-    //     } else {
-    //         return (
-    //         <li className={activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action"} key={article.id}>
-    //             {article.title}
-    //         </li>
-    //         );
-    //     }
-    // });
-
-    const list = []
-
-    articles.forEach((article, index) => {
+    const articleList = articles && articles.map( (article , index) => {
         if(articles.length === index+1){
-            list.push(
+            return (
                 <li key={article.id} ref={lastArticle}  className={activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action"}  onClick={() => handleSelect}>
                 {article.title}
                 </li>
-            )
+            );
         } else {
-            list.push(
-                <li key={article.id}  className={activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action"}  onClick={() => handleSelect}>
+            return (
+            <li className={activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action"} key={article.id}>
                 {article.title}
-                </li>
-            )
+            </li>
+            );
         }
-    })
+    });
 
     const handleSearch = (e) =>{
         setQuery(e.target.value)
@@ -77,8 +59,7 @@ function Select2() {
                                 onBlur={() => setOpenList(false)}  value={query} placeholder="Select  Title"></input>
                             </div>
                             {openList && <ul className="list-group">
-                                {/* {allArticles} */}
-                                {list}
+                            {articleList}
 
                             </ul>
                             }

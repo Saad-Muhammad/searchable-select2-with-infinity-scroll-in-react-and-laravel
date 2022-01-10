@@ -65927,41 +65927,22 @@ function Select2() {
       }
     });
     if (node) observer.current.observe(node); // console.log(node)
-  }, [loading, hasMore]); // const allArticles = articles && articles.map( (article , index) => {
-  //     if(articles.length === index+1){
-  //         return (
-  //             <li key={article.id} ref={lastArticle}  className={activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action"}  onClick={() => handleSelect}>
-  //             {article.title}
-  //             </li>
-  //         );
-  //     } else {
-  //         return (
-  //         <li className={activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action"} key={article.id}>
-  //             {article.title}
-  //         </li>
-  //         );
-  //     }
-  // });
-
-  var list = [];
-  articles.forEach(function (article, index) {
+  }, [loading, hasMore]);
+  var articleList = articles && articles.map(function (article, index) {
     if (articles.length === index + 1) {
-      list.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: article.id,
         ref: lastArticle,
         className: activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action",
         onClick: function onClick() {
           return handleSelect;
         }
-      }, article.title));
+      }, article.title);
     } else {
-      list.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        key: article.id,
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action",
-        onClick: function onClick() {
-          return handleSelect;
-        }
-      }, article.title));
+        key: article.id
+      }, article.title);
     }
   });
 
@@ -66003,7 +65984,7 @@ function Select2() {
     placeholder: "Select  Title"
   })), openList && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "list-group"
-  }, list), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, openList && loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+  }, articleList), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, openList && loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
     className: "text-center mt-2"
   }, "Loading....")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, openList && error && error))))));
 }
