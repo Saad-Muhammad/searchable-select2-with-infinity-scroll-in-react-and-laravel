@@ -10967,7 +10967,7 @@ a.text-dark:focus {
 }
 
 .list-group {
-  height: 400px;
+  max-height: 400px;
   overflow-y: auto;
   width: 100%;
   float: left;

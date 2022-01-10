@@ -65904,7 +65904,7 @@ function Select2() {
       openList = _useState6[0],
       setOpenList = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(-1),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
       _useState8 = _slicedToArray(_useState7, 2),
       activeId = _useState8[0],
       setActiveId = _useState8[1];
@@ -65915,6 +65915,19 @@ function Select2() {
       loading = _useArticleSearch.loading,
       error = _useArticleSearch.error;
 
+  var wrapper = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    var checkIfClickedOutside = function checkIfClickedOutside(e) {
+      if (openList && wrapper.current && !wrapper.current.contains(e.target)) {
+        setOpenList(false);
+      }
+    };
+
+    document.addEventListener("click", checkIfClickedOutside);
+    return function () {
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [openList]);
   var observer = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
   var lastArticle = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function (node) {
     if (loading) return;
@@ -65934,14 +65947,17 @@ function Select2() {
         key: article.id,
         ref: lastArticle,
         className: activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action",
-        onClick: function onClick() {
-          return handleSelect;
+        onClick: function onClick(e) {
+          return handleSelect(e, article.id);
         }
       }, article.title);
     } else {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: activeId === article.id ? "active list-group-item list-group-item-action" : "list-group-item list-group-item-action",
-        key: article.id
+        key: article.id,
+        onClick: function onClick(e) {
+          return handleSelect(e, article.id);
+        }
       }, article.title);
     }
   });
@@ -65951,10 +65967,10 @@ function Select2() {
     setPageNumber(1);
   };
 
-  var handleSelect = function handleSelect(e) {
+  var handleSelect = function handleSelect(e, id) {
     e.preventDefault();
-    setActiveId();
-    console.log(e);
+    setActiveId(id);
+    setQuery(e.target.textContent); // console.log(e.target.textContent)
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65964,7 +65980,8 @@ function Select2() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Custom Select 2 with Searchable and infinite scroll"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-8"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "card p-2"
+    className: "card p-2",
+    ref: wrapper
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-body"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -65976,9 +65993,6 @@ function Select2() {
     onChange: handleSearch,
     onFocus: function onFocus() {
       return setOpenList(true);
-    },
-    onBlur: function onBlur() {
-      return setOpenList(false);
     },
     value: query,
     placeholder: "Select  Title"
